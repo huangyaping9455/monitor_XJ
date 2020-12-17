@@ -1,22 +1,26 @@
-import Vue from 'vue';
-import Vuex from 'vuex';
-import user from './modules/user';
-import common from './modules/common';
-import tags from './modules/tags';
-import logs from './modules/logs';
-import models from './modules/models';
-import getters from './getters';
+import Vue from 'vue'
+import Vuex from 'vuex'
+import actions from './actions'
+import * as getters from './getters'
+import state from './state'
+import mutations from './mutations'
+import createLogger from 'vuex/dist/logger'
+import government from './modules/government'
 
-Vue.use(Vuex);
+Vue.use(Vuex)
+
+const debug = process.env.NODE_ENV !== 'production'
+
+// store
 const store = new Vuex.Store({
+  actions,
+  getters,
+  state,
+  mutations,
+  strict: debug,
   modules: {
-    user,
-    common,
-    logs,
-    tags,
-    models
+    government
   },
-  getters
-});
-
-export default store;
+  plugins: debug ? [createLogger()] : []
+})
+export default store

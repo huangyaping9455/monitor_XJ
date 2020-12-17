@@ -1,0 +1,19 @@
+//主色
+// $color-primary:#324041;
+// //顶部header高度
+// $system-header:60px;
+// //侧边栏宽度(只能通过js传入)
+// $system-slider-width:225px;
+
+// $menu-background-color:#273643;
+// $submenu-background-color:#17191A;
+
+// /* 改变主题色变量 */
+// $--color-primary: $color-primary;
+// $--table-header-background: $color-primary;
+$--table-header-color: #fff;
+
+/* 改变 icon 字体路径变量，必需 */
+$--font-path: '~element-ui/lib/theme-chalk/fonts';
+
+@import "~element-ui/packages/theme-chalk/src/index";
