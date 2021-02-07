@@ -491,13 +491,13 @@
                 <p class="numerical" :class="hierarchy == 2 ? 'ccur' : ''">
                   <span
                     @click="
-                      goinfo(2, '疲劳驾驶报警', '主动安全处警', '已处理', row)
+                      goinfo(2, '生理疲劳报警', '主动安全处警', '已处理', row)
                     "
                     >{{ row.pilaoshipincl }}</span
                   >
                   /
                   <span
-                    @click="goinfo(2, '疲劳驾驶报警', '主动安全处警', '', row)"
+                    @click="goinfo(2, '生理疲劳报警', '主动安全处警', '', row)"
                     >{{ row.dmspilao }}</span
                   >
                   / {{ row.dmspilaocllv }}
@@ -773,7 +773,6 @@ export default {
       );
       this.loading = false;
       if (data) {
-        console.log(data);
         this.enterpriseList = data.records;
         //分页处理
         this.current = data.current;

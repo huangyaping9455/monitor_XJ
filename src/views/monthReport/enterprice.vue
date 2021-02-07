@@ -276,7 +276,7 @@ export default {
       }
     },
     // 查看
-    rowClick(row) {
+    async rowClick(row) {
       this.previewshow = true;
       this.monthloading = true;
       let look = document.getElementsByClassName("main")[0];
@@ -285,31 +285,32 @@ export default {
       lookwidth.style.width = 50 + "%";
       this.wenjianming = row.name;
       downid = row.muluid;
-      axios({
-        url: "/api/blade-platform/platform/baobiaowenjian/preview",
-        method: "post",
-        params: {
+      let [err, data] = await dataAnalysisApi.awaitWrap(
+        dataAnalysisApi.getZBdown({
           fileType: 2,
           id: row.muluid,
-        },
-      }).then((res) => {
+        })
+      );
+      if (data) {
         this.monthloading = false;
-        this.Preimg = res.data.data.imgList;
-      });
+        this.Preimg = data.imgList;
+      } else {
+        this.$message.error(msg);
+      }
     },
     // 下载 文件
-    downwenjian() {
-      axios({
-        url: "/api/blade-platform/platform/baobiaowenjian/preview",
-        method: "post",
-        params: {
+    async downwenjian() {
+      let [err, data] = await dataAnalysisApi.awaitWrap(
+        dataAnalysisApi.getZBdown({
           fileType: 4,
           id: downid,
-        },
-      }).then((res) => {
-        window.location.href =
-          this.$store.getters.userinfo.urlPrefix + res.data.data.path;
-      });
+        })
+      );
+      if (data) {
+        window.location.href = "http://222.82.236.242:8894/" + data.path;
+      } else {
+        this.$message.error(msg);
+      }
     },
     // 退出
     backto() {

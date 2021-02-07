@@ -270,7 +270,7 @@
               <el-option
                 v-if="zhudong"
                 label="生理疲劳报警"
-                value="疲劳驾驶报警"
+                value="生理疲劳报警"
               ></el-option>
             </el-select>
           </el-form-item>
@@ -435,6 +435,7 @@
             label="处理时间/申述时间"
             width="126"
             align="center"
+            :show-overflow-tooltip="true"
           ></el-table-column>
           <el-table-column
             prop="chulixingshi"
@@ -651,10 +652,10 @@ export default {
     }),
   },
   mounted() {
-    if (this.form.Allalarmtype == "北斗报警") {
+    if (this.form.Allalarmtype === "北斗报警") {
       this.zhudong = false;
       this.GPS = true;
-    } else if (this.form.Allalarmtype == "主动安全处警") {
+    } else if (this.form.Allalarmtype === "主动安全报警") {
       this.GPS = false;
       this.zhudong = true;
     } else {
@@ -665,25 +666,23 @@ export default {
   methods: {
     // 请求数据判断
     getData(page) {
-      // this.getZFALLBJMX(page);
-      if (this.form.type == 1) {
-        // this.getZFgpsBJMX(page)
-        // this.getZFALLBJMX(page);
-        if (
-          this.form.Allalarmtype == "主动安全报警" &&
-          this.form.alarmtype == ""
-        ) {
-          this.getZFDMSBJMX(page);
-        } else {
-          this.getZFALLBJMX(page);
-        }
-      } else {
-        if (this.form.Allalarmtype == "主动安全报警") {
-          this.getZFDMSBJMX(page);
-        } else {
-          this.getZFALLBJMX(page);
-        }
-      }
+      this.getZFALLBJMX(page);
+      // if (this.form.type == 1) {
+      //   if (
+      //     this.form.Allalarmtype == "主动安全报警" &&
+      //     this.form.alarmtype == ""
+      //   ) {
+      //     this.getZFDMSBJMX(page);
+      //   } else {
+      //     this.getZFALLBJMX(page);
+      //   }
+      // } else {
+      //   if (this.form.Allalarmtype === "主动安全报警") {
+      //     this.getZFDMSBJMX(page);
+      //   } else {
+      //     this.getZFALLBJMX(page);
+      //   }
+      // }
     },
     //所有报警详情明细
     async getZFALLBJMX(current = 1) {
@@ -700,7 +699,6 @@ export default {
           shifouchuli: this.form.shifouchuli,
           shifoushenshu: this.form.shifoushenshu,
           alarmtype: this.form.alarmtype,
-          deptId: this.$store.state.userinfo.deptId,
         })
       );
       this.loading = false;
@@ -729,7 +727,6 @@ export default {
           shifouchuli: this.form.shifouchuli,
           shifoushenshu: this.form.shifoushenshu,
           alarmtype: this.form.alarmtype,
-          deptId: this.$store.state.userinfo.deptId,
         })
       );
       this.loading = false;
@@ -756,7 +753,6 @@ export default {
           deptName: this.form.deptName,
           shifouchuli: this.form.shifouchuli,
           alarmtype: this.form.alarmtype,
-          deptId: this.$store.state.userinfo.deptId,
         })
       );
       this.loading = false;
@@ -806,6 +802,7 @@ export default {
     },
     // 报警类型选择
     Alltype(data) {
+      this.form.alarmtype = "";
       if (data === "北斗报警") {
         this.zhudong = false;
         this.GPS = true;
@@ -831,7 +828,6 @@ export default {
           shifouchuli: this.form.shifouchuli,
           shifoushenshu: this.form.shifoushenshu,
           alarmtype: this.form.alarmtype,
-          deptId: this.$store.state.userinfo.deptId,
         })
       );
       this.downloading = false;

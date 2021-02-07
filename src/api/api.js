@@ -1,6 +1,8 @@
 import axios from 'axios';
 import Cookies from 'js-cookie'
-import { Message } from 'element-ui';
+import {
+  Message
+} from 'element-ui';
 
 // 请求取消
 const CancelToken = axios.CancelToken;
@@ -8,7 +10,7 @@ const source = CancelToken.source();
 
 
 export const $axios = axios.create({
-  baseURL:process.env.NODE_ENV === 'production' ? process.env.VUE_APP_BASE_API : '/',
+  baseURL: process.env.NODE_ENV === 'production' ? process.env.VUE_APP_BASE_API : '/',
   timeout: 60000
 });
 // 请求拦截
@@ -21,9 +23,15 @@ $axios.interceptors.request.use((config) => {
 
 // 响应拦截
 $axios.interceptors.response.use((response) => {
-  const { status, data } = response;
+  const {
+    status,
+    data
+  } = response;
   if (Object.is(status, 200)) {
-    const { code, msg } = data;
+    const {
+      code,
+      msg
+    } = data;
     switch (code) {
       case 200:
         msg && console.log(msg);
@@ -33,7 +41,7 @@ $axios.interceptors.response.use((response) => {
         console.log('跳转到首页');
         break;
       case 500:
-        return Promise.reject('西败了');
+        return Promise.reject('失败了');
       default:
         return Promise.reject(msg);
     }
@@ -45,6 +53,6 @@ $axios.interceptors.response.use((response) => {
 //async错误处理
 export const awaitWrap = (promise) => {
   return promise
-   .then(data => [null, data])
-   .catch(err => [err, null])
+    .then(data => [null, data])
+    .catch(err => [err, null])
 }

@@ -47,6 +47,24 @@
       border: 0.0714rem solid #0a3774;
       .businessName {
         color: #01f8ff;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+      }
+      .cur {
+        cursor: pointer;
+      }
+      .numerical {
+        margin: 0;
+        white-space: nowrap;
+        /* span{
+          color: rgb(255,217,47)
+        } */
+        &.ccur span {
+          cursor: pointer;
+          color: rgb(255, 217, 47);
+          text-decoration: underline;
+        }
       }
     }
   }
@@ -106,12 +124,6 @@
   .el-form-item__label {
     color: #01f8ff;
   }
-  .timetype {
-    .el-form-item {
-      margin-right: 0px;
-      margin-bottom: 0px;
-    }
-  }
   input {
     background: #112e4d;
     border-color: #004b77;
@@ -124,9 +136,6 @@
   }
   .el-form-item--mini.el-form-item {
     margin-bottom: 0.8rem;
-  }
-  .timetype .el-form-item--mini.el-form-item {
-    margin-bottom: 0px;
   }
 }
 .mainTable {
@@ -203,6 +212,13 @@
               icon-class="down"
             />下载
           </el-button>
+          <el-button
+            @click="refresh"
+            size="mini"
+            class="btn"
+            icon="el-icon-refresh"
+            >刷新</el-button
+          >
         </div>
         <!-- 查询 -->
         <el-form
@@ -212,56 +228,26 @@
           :model="form"
           class="search"
         >
-          <el-form-item label="时间">
-            <el-col :span="11" class="timetype">
-              <el-form-item>
-                <el-date-picker
-                  style="width: 100%"
-                  :picker-options="pickerOptions"
-                  type="date"
-                  placeholder="选择日期"
-                  v-model="form.begintime"
-                  value-format="yyyy-MM-dd"
-                ></el-date-picker>
-              </el-form-item>
-            </el-col>
-            <el-col class="line" :span="1">-</el-col>
-            <el-col :span="11" class="timetype">
-              <el-form-item>
-                <el-date-picker
-                  style="width: 100%"
-                  :picker-options="pickerOptions"
-                  type="date"
-                  placeholder="选择日期"
-                  value-format="yyyy-MM-dd"
-                  v-model="form.endtime"
-                ></el-date-picker>
-              </el-form-item>
-            </el-col>
+          <el-form-item label="开始时间">
+            <el-date-picker
+              v-model="form.begintime"
+              type="date"
+              :picker-options="pickerOptions"
+              value-format="yyyy-MM-dd"
+              placeholder="选择开始日期"
+            ></el-date-picker>
           </el-form-item>
-          <el-form-item label="企业名称">
-            <el-input
-              v-model="form.deptName"
-              placeholder="请输入企业名称"
-              clearable
-            ></el-input>
-          </el-form-item>
-          <el-form-item label="车牌号">
-            <el-input
-              v-model="form.chepaihao"
-              placeholder="输入车牌号"
-              clearable
-            ></el-input>
-          </el-form-item>
-          <el-form-item label="营运类型" clearable>
-            <el-input
-              v-model="form.yingyunleixing"
-              placeholder="输入营运类型"
-              clearable
-            ></el-input>
+          <el-form-item label="结束时间">
+            <el-date-picker
+              v-model="form.endtime"
+              type="date"
+              :picker-options="pickerOptions"
+              value-format="yyyy-MM-dd"
+              placeholder="选择结束日期"
+            ></el-date-picker>
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" class="sbtn" @click="getZFCLBJTJPM(1)"
+            <el-button type="primary" class="sbtn" @click="getDate(1)"
               >搜索</el-button
             >
           </el-form-item>
@@ -269,7 +255,6 @@
         <!-- mainTable -->
         <el-table
           v-loading="loading"
-          @sort-change="changeSort"
           element-loading-background="rgba(0, 0, 0, 0.4)"
           size="mini"
           class="mainTable"
@@ -285,115 +270,52 @@
             </template>
           </el-table-column>
           <el-table-column
-            prop="cheliangpaizhao"
-            label="车牌号"
-            min-width="100"
+            label="企业名称"
+            prop="company"
+            width="240"
             align="center"
           ></el-table-column>
-          <el-table-column label="企业名称" min-width="240" align="center">
-            <template slot-scope="{ row }">
-              <span class="businessName">{{ row.deptName }}</span>
-            </template>
-          </el-table-column>
+          <el-table-column
+            label="时间段"
+            prop="date"
+            width="240"
+            align="center"
+          ></el-table-column>
+          <el-table-column
+            label="车辆牌照"
+            prop="cheliangpaizhao"
+            align="center"
+            min-width="80"
+          ></el-table-column>
           <el-table-column
             prop="shiyongxingzhi"
             label="营运类型"
-            min-width="140"
+            width="150"
             align="center"
           ></el-table-column>
           <el-table-column
-            prop="chepaiyanse"
-            label="车牌颜色"
+            prop="daysOnline"
+            label="上线天数"
+            align="center"
+            min-width="150"
+          ></el-table-column>
+          <el-table-column
+            prop="qualifiedPositionRate"
+            label="数据合格率"
+            align="center"
+            min-width="150"
+          ></el-table-column>
+          <el-table-column
+            prop="intactPositionRate"
+            label="轨迹完整率"
+            align="center"
             min-width="100"
-            align="center"
-          ></el-table-column>
-          <el-table-column label="北斗报警" align="center">
-            <el-table-column
-              prop="gpschaosu"
-              label="超速报警次数"
-              min-width="120"
-              sortable="custom"
-              align="center"
-            ></el-table-column>
-            <!-- <el-table-column
-              prop="gpsyejian"
-              label="夜间限速报警次数"
-              sortable="custom"
-              align="center"
-              min-width="150"
-            ></el-table-column> -->
-            <el-table-column
-              prop="gpspilao"
-              label="疲劳驾驶报警次数"
-              sortable="custom"
-              align="center"
-              min-width="150"
-            ></el-table-column>
-            <el-table-column
-              prop="gpsyejian"
-              label="夜间报警次数"
-              sortable="custom"
-              align="center"
-              min-width="150"
-            ></el-table-column>
-            <el-table-column
-              prop="gpsyichang"
-              label="异常报警次数"
-              sortable="custom"
-              align="center"
-              min-width="120"
-            ></el-table-column>
-          </el-table-column>
-          <el-table-column
-            prop="gpsbaojingzongshu"
-            label="北斗报警次数"
-            sortable="custom"
-            align="center"
-            min-width="120"
-          ></el-table-column>
-          <el-table-column label="主动安全报警" align="center">
-            <el-table-column
-              prop="dmsjiedadianhua"
-              sortable="custom"
-              label="接打电话"
-              align="center"
-              min-width="100"
-            ></el-table-column>
-            <el-table-column
-              prop="dmschouyan"
-              sortable="custom"
-              label="抽烟"
-              align="center"
-              min-width="90"
-            ></el-table-column>
-            <el-table-column
-              prop="dmsfenshen"
-              sortable="custom"
-              label="分神"
-              align="center"
-              min-width="90"
-            ></el-table-column>
-            <el-table-column
-              prop="dmspilao"
-              sortable="custom"
-              label="生理疲劳"
-              align="center"
-              min-width="100"
-            ></el-table-column>
-          </el-table-column>
-          <el-table-column
-            prop="dmsbaojingzongshu"
-            sortable="custom"
-            label="主动安全报警数"
-            align="center"
-            min-width="130"
           ></el-table-column>
           <el-table-column
-            prop="baojingzongshu"
-            sortable="custom"
+            prop="driftPositionRate"
+            label="轨迹漂移率"
+            align="center"
             min-width="100"
-            label="报警总数"
-            align="center"
           ></el-table-column>
         </el-table>
         <!-- page -->
@@ -413,50 +335,50 @@
             </span>
           </div>
           <div class="page-r">
-            <span class="el-icon-d-arrow-left" @click="getZFCLBJTJPM(1)"></span>
+            <span class="el-icon-d-arrow-left" @click="getDate(1)"></span>
             <span
               class="el-icon-arrow-left"
-              @click="getZFCLBJTJPM(current - 1)"
+              @click="getDate(current - 1)"
             ></span>
             <span
               class="num"
               v-show="current - 2 > 0"
-              @click="getZFCLBJTJPM(current - 2)"
+              @click="getDate(current - 2)"
               >{{ current - 2 }}</span
             >
             <span
               class="num"
               v-show="current - 1 > 0"
-              @click="getZFCLBJTJPM(current - 1)"
+              @click="getDate(current - 1)"
               >{{ current - 1 }}</span
             >
             <span class="num active">{{ current }}</span>
             <span
               class="num"
               v-show="current + 1 <= pageTotal"
-              @click="getZFCLBJTJPM(current + 1)"
+              @click="getDate(current + 1)"
               >{{ current + 1 }}</span
             >
             <span
               class="num"
               v-show="current + 2 <= pageTotal"
-              @click="getZFCLBJTJPM(current + 2)"
+              @click="getDate(current + 2)"
               >{{ current + 2 }}</span
             >
             <span
               class="el-icon-arrow-right"
-              @click="getZFCLBJTJPM(current + 1)"
+              @click="getDate(current + 1)"
             ></span>
             <span
               class="el-icon-d-arrow-right"
-              @click="getZFCLBJTJPM(pageTotal)"
+              @click="getDate(pageTotal)"
             ></span>
             <div class="pagesize">
               每页显示
               <el-select
                 class="showselect"
                 size="mini"
-                @change="getZFCLBJTJPM(1)"
+                @change="getDate(1)"
                 v-model="pagesizeactive"
               >
                 <el-option
@@ -481,7 +403,6 @@ import dataAnalysisApi from "@/api/modules/report";
 import { mapGetters } from "vuex";
 import { format } from "@/config/date";
 import { export_json_to_excel } from "@/config/Export2Excel";
-
 export default {
   components: {
     "statistics-aside": statisticsAside,
@@ -489,81 +410,78 @@ export default {
   },
   data() {
     return {
-      newtime: "",
       loading: false,
       downloading: false,
       searchshow: false,
       total: 0, //消息总数
       current: 1, //当前页数
       pageTotal: 1, //总页数
-      pagesize: [10, 20, 30, 50, 100], //每页显示列表
+      pagesize: [20, 30, 50, 100, 200], //每页显示列表
       pagesizeactive: 20, //当前每页显示
-      enterpriseListH: "calc(100vh - 13.5714rem)",
+      enterpriseListH: "calc(100vh - 14.6814rem)",
       form: {
         begintime: format(
-          new Date().getTime() - 24 * 60 * 60 * 1000,
+          new Date().getTime() - 3600 * 1000 * 24,
           "YYYY-MM-DD"
         ),
-        endtime: format(
-          new Date().getTime() - 24 * 60 * 60 * 1000,
-          "YYYY-MM-DD"
-        ),
-        deptName: "",
-        chepaihao: "",
-        yingyunleixing: "",
+        endtime: format(new Date().getTime(), "YYYY-MM-DD"),
       },
-      enterpriseList: [],
       pickerOptions: {
-        disabledDate: (time) => {
-          let nowData = new Date();
-          nowData = new Date(nowData.setDate(nowData.getDate() - 1));
-          return time > nowData;
+        disabledDate(time) {
+          return (
+            time.getTime() > Date.now() ||
+            time.getTime() < Date.now() - 24 * 60 * 60 * 1000 * 30
+          );
         },
       },
-      orderColumns: "", //排序字段
-      order: "", //正序/倒序
-      isorder: "",
+      enterpriseList: [],
+      zhengfuId: "", //地区id
     };
   },
   mounted() {
-    //报警统计结算
-    this.getZFCLBJTJPM();
-    this.isorder = new Map()
-      .set("ascending", 0)
-      .set("descending", 1)
-      .set(null, "");
+    this.getZFCLRYXTJ();
   },
   computed: {
     ...mapGetters({
       zhuzzhiId: "government/fasongdanwei",
+      xuanzhongchengshi: "government/xuanzhongchengshi",
     }),
   },
   watch: {
     zhuzzhiId(newid) {
       // 切换单位
       if (newid) {
-        this.getZFCLBJTJPM();
+        this.zhengfuId = this.zhuzzhiId;
+        this.getDate(1);
       }
     },
   },
   methods: {
-    //报警统计结算
-    async getZFCLBJTJPM(current = 1) {
+    refresh() {
+      this.form = {
+        begintime: format(
+          new Date().getTime() - 3600 * 1000 * 24,
+          "YYYY-MM-DD"
+        ),
+        endtime: format(new Date().getTime(), "YYYY-MM-DD"),
+      };
+      this.getDate(1);
+    },
+    // 请求数据判断
+    getDate(page) {
+      this.getZFCLRYXTJ(page);
+    },
+    //地区报警处理率
+    async getZFCLRYXTJ(current = 1) {
       current = Number(current);
       this.loading = true;
       let [err, data] = await dataAnalysisApi.awaitWrap(
-        dataAnalysisApi.getZFCLBJTJPM({
-          // deptId:5448,
+        dataAnalysisApi.getZFCLRYXTJ({
           deptId: this.zhuzzhiId,
           current: current,
           size: this.pagesizeactive,
-          orderColumns: this.orderColumns,
-          order: this.order,
           begintime: this.form.begintime,
           endtime: this.form.endtime,
-          deptName: this.form.deptName,
-          cheliangpaizhao: this.form.chepaihao,
-          shiyongxingzhi: this.form.yingyunleixing,
         })
       );
       this.loading = false;
@@ -583,29 +501,22 @@ export default {
         : (this.enterpriseListH = "calc(100vh - 16.8571rem)");
       this.searchshow = !this.searchshow;
     },
-    //排序
-    changeSort(val) {
-      this.orderColumns = val.prop;
-      this.order = this.isorder.get(val.order);
-      //   console.log(this.order);
-      this.getZFCLBJTJPM(1);
-    },
     // 统计下载
     async downtable() {
       this.downloading = true;
+      let req, url;
+      url = "getZFCLRYXTJ";
+      req = {
+        deptId: this.zhuzzhiId,
+        // };
+      };
       let [err, data] = await dataAnalysisApi.awaitWrap(
-        dataAnalysisApi.getZFCLBJTJPM({
-          // deptId:5448,
-          deptId: this.zhuzzhiId,
+        dataAnalysisApi[url]({
+          ...req,
           current: 0,
           size: 0,
-          orderColumns: this.orderColumns,
-          order: this.order,
           begintime: this.form.begintime,
           endtime: this.form.endtime,
-          deptName: this.form.deptName,
-          cheliangpaizhao: this.form.chepaihao,
-          shiyongxingzhi: this.form.yingyunleixing,
         })
       );
       this.downloading = false;
@@ -627,60 +538,28 @@ export default {
     },
     export2Excel(list) {
       require.ensure([], () => {
-        let multiHeader, theader, filterVal, merges, filename;
+        let multiHeader, filterVal, merges, filename;
         multiHeader = [
-          "序号",
-          "车牌号",
+          "排名",
           "企业名称",
+          "时间段",
+          "车辆牌照",
           "营运类型",
-          "车牌颜色",
-          "北斗报警",
-          "",
-          "",
-          "",
-          "北斗报警次数",
-          "主动安全报警",
-          "",
-          "",
-          "",
-          "主动安全报警总数",
-          "报警总数",
-        ];
-        theader = [
-          "",
-          "",
-          "",
-          "",
-          "",
-          "超速报警次数",
-          "疲劳驾驶报警次数",
-          "夜间报警次数",
-          "异常报警次数",
-          "",
-          "接打电话",
-          "抽烟",
-          "分神",
-          "生理疲劳",
-          "",
-          "",
+          "上线天数",
+          "数据合格率",
+          "轨迹完整率",
+          "轨迹漂移率",
         ];
         filterVal = [
           "index",
+          "company",
+          "date",
           "cheliangpaizhao",
-          "deptName",
           "shiyongxingzhi",
-          "chepaiyanse",
-          "gpschaosu",
-          "gpspilao",
-          "gpsyejian",
-          "gpsyichang",
-          "gpsbaojingzongshu",
-          "dmsjiedadianhua",
-          "dmschouyan",
-          "dmsfenshen",
-          "dmspilao",
-          "dmsbaojingzongshu",
-          "baojingzongshu",
+          "daysOnline",
+          "qualifiedPositionRate",
+          "intactPositionRate",
+          "driftPositionRate",
         ];
         merges = [
           "A1:A2",
@@ -688,20 +567,19 @@ export default {
           "C1:C2",
           "D1:D2",
           "E1:E2",
-          "F1:I1",
-          "J1:J2",
-          "K1:N1",
-          "O1:O2",
-          "P1:P2",
+          "F1:F2",
+          "G1:G2",
+          "H1:H2",
+          "I1:I2",
         ];
-        // const list = this.goodsItems;
+        filename = "车辆日运行统计";
         const data = this.formatJson(filterVal, list);
         export_json_to_excel({
-          multiHeader: multiHeader,
-          header: theader,
+          multiHeader,
+          header: multiHeader,
           data,
+          filename: filename,
           merges,
-          filename: "车辆报警排名",
         });
       });
     },

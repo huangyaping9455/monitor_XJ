@@ -1,6 +1,6 @@
 <style lang="scss" scoped>
 .leftMenu {
-  width: 182px;
+  width: 190px;
   height: 100vh;
   background-image: url("~@/assets/img/bg_12.png");
   background-size: 100% 100%;
@@ -99,7 +99,6 @@
 }
 </style>
 
-
 <template>
   <aside class="leftMenu" :class="ismenuShow ? 'show' : 'noshow'">
     <el-menu
@@ -111,7 +110,7 @@
       text-color="#01f8ff"
       :unique-opened="true"
     >
-      <el-menu-item index="home">
+      <el-menu-item index="home" @click="openMenu">
         <div class="menu-item">
           <svg-icon class="icon" icon-class="home" />
           <span slot="title">首 页</span>
@@ -124,28 +123,34 @@
             <span>动态监管分析</span>
           </div>
         </template>
-        <el-menu-item index="dataAnalysis">
+        <el-menu-item index="dataAnalysis" @click="openMenu">
           <div class="menu-item">
             <svg-icon class="icon" icon-class="shuju" />
             <span>数据分析</span>
           </div>
         </el-menu-item>
-        <el-menu-item index="treatmentRate">
+        <el-menu-item index="treatmentRate" @click="openMenu">
           <div class="menu-item">
             <svg-icon class="icon" icon-class="chulilv" />
             <span>处理率统计</span>
           </div>
         </el-menu-item>
-        <el-menu-item index="vehicle">
+        <el-menu-item index="vehicle" @click="openMenu">
           <div class="menu-item">
             <svg-icon class="icon" icon-class="cheliang" />
             <span>车辆统计</span>
           </div>
         </el-menu-item>
-        <el-menu-item index="QYvehicle">
+        <el-menu-item index="QYvehicle" @click="openMenu">
           <div class="menu-item">
             <svg-icon class="icon" icon-class="zhengqi" />
             <span>企业统计</span>
+          </div>
+        </el-menu-item>
+        <el-menu-item index="DayStatistics" @click="openMenu">
+          <div class="menu-item">
+            <svg-icon class="icon" icon-class="zhenggai" />
+            <span>车辆日运行统计</span>
           </div>
         </el-menu-item>
       </el-submenu>
@@ -156,19 +161,19 @@
             <span>报警排名</span>
           </div>
         </template>
-        <el-menu-item index="ZFDQ">
+        <el-menu-item index="ZFDQ" @click="openMenu">
           <div class="menu-item">
             <svg-icon class="icon" icon-class="zhenggai" />
             <span>地区报警排名</span>
           </div>
         </el-menu-item>
-        <el-menu-item index="enterprise">
+        <el-menu-item index="enterprise" @click="openMenu">
           <div class="menu-item">
             <svg-icon class="icon" icon-class="shuju" />
             <span>企业报警排名</span>
           </div>
         </el-menu-item>
-        <el-menu-item index="VehicleRank">
+        <el-menu-item index="VehicleRank" @click="openMenu">
           <div class="menu-item">
             <svg-icon class="icon" icon-class="cheliang" />
             <span>车辆报警排名</span>
@@ -182,25 +187,25 @@
             <span>政企互通</span>
           </div>
         </template>
-        <el-menu-item index="notice">
+        <el-menu-item index="notice" @click="openMenu">
           <div class="menu-item">
             <svg-icon class="icon" icon-class="tongzhi" />
             <span>通知公告</span>
           </div>
         </el-menu-item>
-        <el-menu-item index="SafetyInspection">
+        <el-menu-item index="SafetyInspection" @click="openMenu">
           <div class="menu-item">
             <svg-icon class="icon" icon-class="anquan" />
             <span>安全查岗</span>
           </div>
         </el-menu-item>
-        <el-menu-item index="documentFile">
+        <el-menu-item index="documentFile" @click="openMenu">
           <div class="menu-item">
             <svg-icon class="icon" icon-class="wenjian" />
             <span>文件下发</span>
           </div>
         </el-menu-item>
-        <el-menu-item index="issueRectification">
+        <el-menu-item index="issueRectification" @click="openMenu">
           <div class="menu-item">
             <svg-icon class="icon" icon-class="zhenggai" />
             <span>下发整改</span>
@@ -214,13 +219,13 @@
             <span>安全报告</span>
           </div>
         </template>
-        <el-menu-item index="weekReport">
+        <el-menu-item index="weekReport" @click="openMenu">
           <div class="menu-item">
             <svg-icon class="icon" icon-class="wenjian" />
             <span>周报</span>
           </div>
         </el-menu-item>
-        <el-menu-item index="monthReport">
+        <el-menu-item index="monthReport" @click="openMenu">
           <div class="menu-item">
             <svg-icon class="icon" icon-class="wenjian" />
             <span>月报</span>
@@ -241,6 +246,7 @@
 </template>
 
 <script>
+import { mapMutations } from "vuex";
 export default {
   data() {
     return {
@@ -259,6 +265,13 @@ export default {
     changeleftMenu() {
       this.ismenuShow = !this.ismenuShow;
     },
+    // 菜单点击清除存在xuex中的树节点id
+    openMenu() {
+      this.SET_FASONGDANWEI(this.$store.state.userinfo.deptId);
+    },
+    ...mapMutations({
+      SET_FASONGDANWEI: "government/SET_FASONGDANWEI",
+    }),
   },
 };
 </script>

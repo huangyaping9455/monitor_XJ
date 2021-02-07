@@ -6,7 +6,7 @@ import {
 export default {
   // 政府报警统计-报警处理情况(月)
   getZFBJMonthList(params) {
-    return $axios.get('/blade-platform/platform/zhengFuBaoJingTongJi/getZFBJMonthList', {
+    return $axios.get('/blade-platform/platform/zhengFuBaoJingTongJi/getZFBJMonthListNew', {
       params: params
     });
   },
@@ -90,7 +90,7 @@ export default {
   // selectBJDetail(params) {
   //   return $axios.post(`/blade-alarm/alarm/alarminfo/selectBJDetail`,{params:params},{headers:{"content-type":"application/x-www-form-urlencoded"}});
   // },
-   // 获取报警数据
+  // 获取报警数据
   getAlarmGuIdList(params) {
     return $axios.get('/blade-platform/platform/zhengFuBaoJingTongJi/getAlarmGuIdList', {
       params: params

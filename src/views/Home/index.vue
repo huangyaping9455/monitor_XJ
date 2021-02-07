@@ -512,11 +512,7 @@
                   label="报警总处理率"
                   align="center"
                 ></el-table-column>
-                <el-table-column
-                  label="地区名称"
-                  align="center"
-                  :show-overflow-tooltip="true"
-                >
+                <el-table-column label="地区名称" align="center">
                   <template slot-scope="{ row }">
                     <span class="businessName">{{ row.areaname }}</span>
                   </template>
@@ -567,6 +563,7 @@ export default {
       g_TimeFn: "",
       mapData: [],
       areaName: "",
+      zhengfuindex: "",
     };
   },
   components: {
@@ -579,7 +576,17 @@ export default {
   },
   mounted() {
     const timer1 = setInterval(() => {
-      this.init();
+      if (this.zhengfuindex != "") {
+        this.getOne(this.zhengfuindex);
+        this.getTwo(this.zhengfuindex, 1, this.areaName);
+        this.getThree(this.zhengfuindex, 1);
+        this.getFour(this.zhengfuindex);
+      } else {
+        this.getOne(this.userinfo.deptId);
+        this.getTwo(this.userinfo.deptId, 0);
+        this.getThree(this.userinfo.deptId, 0);
+        this.getFour(this.userinfo.deptId);
+      }
     }, 180000);
     // 通过$once来监听定时器，在beforeDestroy钩子可以被清除。
     this.$once("hook:beforeDestroy", () => {
@@ -609,19 +616,19 @@ export default {
     // 初始化
     init() {
       // 政府-企业总数、个体总数、车辆总数、在线车辆数
-      this.getOne();
+      this.getOne(this.userinfo.deptId);
       // 政府-超速报警次数、疲劳报警总数、夜间行驶报警次数、异常报警次数
       this.getTwo(this.userinfo.deptId, 0, "");
       //政府-注册、监控企业数据
       this.getThree(this.userinfo.deptId, 0);
       //政府-各地区详细报警数据表
-      this.getFour();
+      this.getFour(this.userinfo.deptId);
     },
     // 政府-企业总数、个体总数、车辆总数、在线车辆数
-    async getOne() {
+    async getOne(deptId) {
       let [err, data] = await homeApi.awaitWrap(
         homeApi.getOne({
-          deptId: this.userinfo.deptId,
+          deptId: deptId,
         })
       );
       if (err) {
@@ -650,7 +657,7 @@ export default {
           this.cengji--;
           return false;
         }
-        // 判断是否下钻
+        // 判断是否下钻  单击
         if (!isxiazhuan) {
           this.statistics = data;
           this.cengji--;
@@ -717,11 +724,11 @@ export default {
       }
     },
     // 各地区详细报警数据表
-    async getFour() {
+    async getFour(deptId) {
       this.load.load2 = true;
       let [err, data] = await homeApi.awaitWrap(
         homeApi.getFour({
-          deptId: this.userinfo.deptId,
+          deptId: deptId,
         })
       );
       this.load.load2 = false;
@@ -743,10 +750,13 @@ export default {
     /**操作 */
     // 地图返回
     returnMap() {
+      this.zhengfuindex = "";
       // 政府-超速报警次数、疲劳报警总数、夜间行驶报警次数、异常报警次数
       this.getTwo(this.userinfo.deptId, 0, "");
       //政府-注册、监控企业数据
       this.getThree(this.userinfo.deptId, 0);
+      this.getOne(this.userinfo.deptId);
+      this.getFour(this.userinfo.deptId);
     },
     linkto(url, req = {}) {
       this.$router.push({
@@ -757,8 +767,11 @@ export default {
     // 地图下钻
     echartdblclick(el, isxiazhuan) {
       this.cengji++;
+      this.zhengfuindex = el.data.zhengfuid;
       this.getTwo(el.data.zhengfuid, 1, el.name, isxiazhuan);
       this.getThree(el.data.zhengfuid, 1);
+      this.getOne(el.data.zhengfuid);
+      this.getFour(el.data.zhengfuid);
     },
     echartclick(el) {
       if (!el.value) return false;
