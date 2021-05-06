@@ -306,43 +306,54 @@
         <baidu-map
           class="baidumap"
           :center="center"
-          :zoom="15"
+          :zoom="zoom"
           :scroll-wheel-zoom="true"
         >
           <bm-scale anchor="BMAP_ANCHOR_TOP_RIGHT"></bm-scale>
           <!-- <bm-polyline :path="paths" strokeColor="red"></bm-polyline> -->
-          <bm-driving
-            Marker="false"
+          <!-- <bm-driving
+            Marker="true"
             :start="startline"
             :end="endline"
             :panel="false"
             :auto-viewport="true"
-          ></bm-driving>
-          <bm-driving
+          ></bm-driving> -->
+          <bm-polyline
+            :path="path"
+            stroke-color="red"
+            :stroke-opacity="1"
+            :stroke-weight="4"
+          ></bm-polyline>
+           <bm-polyline
+            :path="path2"
+            v-if="vehicleoption.alarmType =='疲劳驾驶报警'"
+            :stroke-opacity="1"
+            :stroke-weight="4"
+          ></bm-polyline>
+          <!-- <bm-driving
           v-if="vehicleoption.alarmType =='疲劳驾驶报警'"
             Marker="false"
             :start="kaishiline"
             :end="startline"
             :panel="false"
             :auto-viewport="true"
-          ></bm-driving>
+          ></bm-driving> -->
           <!-- 开始行驶时间 -->
           <bm-marker :top="true" :position="kaishiline"  v-if="vehicleoption.alarmType =='疲劳驾驶报警'">
             <bm-label
               :content="`开始行驶时间: ${time2.start}`+`<br>`+`地址：${kaishidi}`"
-              :labelStyle="{ color: 'red', fontSize: '12px' }"
+             :labelStyle="labelOpt.styleks"
               :offset="{ width: 10, height: 30 }"
             />
           </bm-marker>
           <bm-marker :top="true" :position="startline">
             <bm-label
               :content="`起点 ${time.start}`+`<br>`+`地址：${qidian}`"
-              :labelStyle="{ color: 'red', fontSize: '12px' }"
+             :labelStyle="labelOpt.style"
               :offset="{ width: 10, height: 30 }"
             />
           </bm-marker>
           <bm-marker :top="true" :position="endline" >
-            <!-- :icon="{url:require('../../assets/logo.png'),size: {width: 32, height: 32}}" -->
             <bm-label
               :content="`终点 ${time.end}`+`<br>`+`地址：${zhongdian}`"
               :labelStyle="{ color: 'red', fontSize: '12px' }"
@@ -424,8 +435,12 @@
               <span>{{ vehicleoption.alarmlevel }}</span>
             </p> -->
             <p v-if="vehicleoption.alarmType =='超速报警'">
+              <span>最高速度：</span>
+              <span>{{ vehicleoption.maxSpeed }}(km/h)</span>
+            </p>
+            <p v-if="vehicleoption.alarmType =='超速报警'">
               <span>超速百分比：</span>
-              <span>14%</span>
+              <span>{{ vehicleoption.chaoSuBiShow }}</span>
             </p>
             <p v-if="vehicleoption.alarmType =='超速报警'">
               <span>限速数值：</span>
@@ -441,12 +456,12 @@
             </p>
             <p>
               <span>违规时间：</span>
-              <span v-if="vehicleoption.alarmType =='抽烟报警'||vehicleoption.alarmType =='分神驾驶报警'||vehicleoption.alarmType =='接打电话报警'||vehicleoption.alarmType =='驾驶员异常报警'"
-                >{{ begintime }}--{{ endtime }}(
+              <span v-if="vehicleoption.alarmType =='抽烟报警'||vehicleoption.alarmType =='分神驾驶报警'||vehicleoption.alarmType =='接打电话报警'||vehicleoption.alarmType =='生理疲劳报警'"
+                >{{ vehicleoption.beginTime }}--{{ vehicleoption.endTime }}(
                   3分钟
                 )</span
               >
-              <span v-else-if="vehicleoption.alarmType !='抽烟报警'||vehicleoption.alarmType !='分神驾驶报警'||vehicleoption.alarmType !='接打电话报警'||vehicleoption.alarmType !='驾驶员异常报警'"
+              <span v-else-if="vehicleoption.alarmType !='抽烟报警'||vehicleoption.alarmType !='分神驾驶报警'||vehicleoption.alarmType !='接打电话报警'||vehicleoption.alarmType !='生理疲劳报警'"
                 >{{ vehicleoption.beginTime }}--{{ vehicleoption.endTime }}({{
                   vehicleoption.keeptimeShow
                 }})</span
@@ -668,7 +683,13 @@ export default {
         new Date().getTime() + 2 * 60 * 1000,
         "YYYY-MM-DD HH:mm:ss"
       ),
-      // paths: [],
+      path: [],
+      path2: [],
+      labelOpt: {
+        style: { color: "red", fontSize: "14px", padding: "0 5px" },
+        styleks: { color: "blue", fontSize: "14px", padding: "0 5px" },
+        offset: { width: 20, height: -25 },
+      },
       imgList: "",
       ziliao: true,
       showVideo: false,
@@ -682,6 +703,7 @@ export default {
       CLXX:false,
       CLXXX:false,
       arryImg:"",
+      zoom: 12,
     };
   },
   computed: {
@@ -715,7 +737,10 @@ export default {
     getData() {
       this.selectByCPYS();
       this.getAlarmGuIdList();
-      //
+      if((this.vehicleoption.beginTime===this.vehicleoption.endTime) &&(this.vehicleoption.alarmType =="抽烟报警"||this.vehicleoption.alarmType =="分神驾驶报警"||this.vehicleoption.alarmType =="接打电话报警"||this.vehicleoption.alarmType =="生理疲劳报警")){
+        this.vehicleoption.beginTime=format(new Date(this.vehicleoption.beginTime).getTime()- 60 * 1000,"YYYY-MM-DD HH:mm:ss");
+        this.vehicleoption.endTime=format(new Date(this.vehicleoption.endTime).getTime() + 2 * 60 * 1000,"YYYY-MM-DD HH:mm:ss");
+      }
       // console.log(this.vehicleoption);
     },
     //获取数据明细
@@ -742,6 +767,12 @@ export default {
         this.loading = false;
       }
     },
+    // 路书的方法
+    mapPoints(points) {
+      return points.map((item) => {
+        return new BMap.Point(item.longitude, item.latitude);
+      });
+    },
     //获取点位数据
     async getPointDataNew() {
      if(this.vehicleoption.alarmType =="疲劳驾驶报警"){
@@ -757,6 +788,7 @@ export default {
       // this.loading = false;
       if (data2) {
         if (data2.length > 0) {
+          this.path2 = this.mapPoints(data2);
           this.kaishiline = {
             lng: data2[0].longitude,
             lat: data2[0].latitude,
@@ -783,9 +815,9 @@ export default {
         this.$message.error(err2);
       }
      }
-     if(this.vehicleoption.alarmType =="抽烟报警"||this.vehicleoption.alarmType =="分神驾驶报警"||this.vehicleoption.alarmType =="接打电话报警"||this.vehicleoption.alarmType =="驾驶员异常报警"){
-        this.vehicleoption.endTime = this.endtime;
-        this.vehicleoption.beginTime=this.begintime;
+     if(this.vehicleoption.alarmType =="抽烟报警"||this.vehicleoption.alarmType =="分神驾驶报警"||this.vehicleoption.alarmType =="接打电话报警"||this.vehicleoption.alarmType =="生理疲劳报警"){
+        // this.vehicleoption.endTime = this.endtime;
+        // this.vehicleoption.beginTime=this.begintime;
      }
       let [err, data] = await dataAnalysisApi.awaitWrap(
         dataAnalysisApi.getPointDataNew({
@@ -802,6 +834,7 @@ export default {
             lng: data[0].longitude,
             lat: data[0].latitude,
           };
+          this.path = this.mapPoints(data);
           this.startline = {
             lng: data[0].longitude,
             lat: data[0].latitude,
@@ -974,13 +1007,13 @@ export default {
   .BMap_Marker:nth-of-type(n + 4) {
     display: none;
   }
-  path:nth-of-type(1){
-  stroke:red;
-  stroke-opacity:0.7;
-  }
-  path:nth-of-type(2){
-  stroke-opacity:0.7;
-  }
+  // path:nth-of-type(1){
+  // stroke:red;
+  // stroke-opacity:0.7;
+  // }
+  // path:nth-of-type(2){
+  // stroke-opacity:0.7;
+  // }
 }
 .mainTable th.is-leaf {
     border-bottom: 1px solid #0a3774;

@@ -266,7 +266,7 @@
               }}</span>
             </template>
           </el-table-column>
-          <el-table-column label="企业名称" min-width="200" align="center">
+          <el-table-column label="企业名称" min-width="200" :show-overflow-tooltip="true" align="center">
             <template slot-scope="{ row }">
               <span class="businessName">{{ row.deptName }}</span>
             </template>

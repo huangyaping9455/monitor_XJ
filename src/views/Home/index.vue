@@ -634,7 +634,7 @@ export default {
       if (err) {
         this.$message.error(err);
       } else {
-        this.overview = data;
+        this.overview = data[0];
       }
     },
     // 政府-超速报警次数、疲劳报警总数、夜间行驶报警次数、异常报警次数

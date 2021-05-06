@@ -350,6 +350,7 @@
             prop="company"
             label="所属企业"
             width="250"
+            :show-overflow-tooltip="true"
             align="center"
           ></el-table-column>
           <el-table-column
@@ -368,12 +369,14 @@
             prop="operatType"
             label="车辆类型"
             width="70"
+            :show-overflow-tooltip="true"
             align="center"
           ></el-table-column>
           <el-table-column
             prop="alarmType"
             label="报警类型"
             width="100"
+            :show-overflow-tooltip="true"
             align="center"
           ></el-table-column>
           <el-table-column
@@ -381,12 +384,14 @@
             label="开始行驶时间"
             width="160"
             align="center"
+            :show-overflow-tooltip="true"
             v-if="form.alarmtype == '疲劳驾驶报警'"
           ></el-table-column>
           <el-table-column
             prop="beginTime"
             label="开始时间"
             width="150"
+            :show-overflow-tooltip="true"
             align="center"
           ></el-table-column>
           <el-table-column
@@ -419,6 +424,7 @@
             label="报警位置"
             width="150"
             align="center"
+            :show-overflow-tooltip="true"
           >
             <template slot-scope="{ row }">
               <span class="nowarp">{{ row.roadName }}</span>
@@ -442,8 +448,9 @@
             label="处理形式"
             width="70"
             align="center"
+            :show-overflow-tooltip="true"
           ></el-table-column>
-          <el-table-column prop="chulimiaoshu" label="处理描述" align="center">
+          <el-table-column prop="chulimiaoshu" label="处理描述" :show-overflow-tooltip="true" align="center">
             <template slot-scope="{ row }">
               <el-tooltip
                 popper-class="tablePopper"
@@ -461,8 +468,9 @@
             label="申诉形式"
             width="70"
             align="center"
+            :show-overflow-tooltip="true"
           ></el-table-column>
-          <el-table-column prop="shensumiaoshu" label="申诉描述" align="center">
+          <el-table-column prop="shensumiaoshu" label="申诉描述" :show-overflow-tooltip="true" align="center">
             <template slot-scope="{ row }">
               <el-tooltip
                 popper-class="tablePopper"

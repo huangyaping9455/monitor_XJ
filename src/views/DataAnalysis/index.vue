@@ -312,7 +312,7 @@
           element-loading-background="rgba(0, 0, 0, 0.4)"
         >
           <div class="title">
-            <span>地区报警排名</span>
+            <span>地区单车报警比排名</span>
             <span class="more" @click="linkto('/ZFDQ')">更多>></span>
           </div>
           <div class="tablebox">
@@ -345,7 +345,7 @@
           element-loading-background="rgba(0, 0, 0, 0.4)"
         >
           <div class="title">
-            <span>企业报警排名</span>
+            <span>企业单车报警比排名</span>
             <span class="more" @click="linkto('/enterprise')">更多>></span>
           </div>
           <div class="tablebox">
@@ -590,6 +590,15 @@ export default {
           yueweichulishu: data.weichulishu,
           yuechulilv: data.chulilv,
         };
+        // let mapData = [
+        //   {
+        //     name: data.areaname,
+        //     value: data.baojingshu,
+        //     yueweichulishu: data.weichulishu,
+        //     yuechulilv: data.chulilv,
+        //     zhengfuid: data.zhengfuid,
+        //   },
+        // ];
         this.mapData = mapData;
         this.areaName = areaName ? areaName : this.userinfo.diqu;
         this.chartOption.option4 = geooption1(
@@ -621,10 +630,10 @@ export default {
       }
     },
     //政府-企业报警占比
-    async getZFBJQiYeList() {
+    async getZFBJQiYeList(deptId) {
       let [err, data] = await dataAnalysisApi.awaitWrap(
         dataAnalysisApi.getZFBJQiYeList({
-          deptId: this.userinfo.deptId,
+          deptId: deptId,
           // deptId:5448
         })
       );
@@ -666,30 +675,30 @@ export default {
       this.loading4 = false;
       if (data) {
         // 处理数据
-        let dataArr = [];
-        this.months.some((el) => {
-          let tempObj = data.some((el1) => {
-            if (el == el1.yue) {
-              dataArr.push(el1);
-              return el1;
-            } else {
-              return false;
-            }
-          });
-          // 如果前面月份没有数据赋值0
-          if (!tempObj) {
-            dataArr.push({
-              yue: el,
-              gpsbaojingshu: 0,
-              shebeibaojingshu: 0,
-              gpschulishu: 0,
-              shebeichulishu: 0,
-            });
-          }
-          if (el == data[data.length - 1].yue) {
-            return true;
-          }
-        });
+        let dataArr = data;
+        // this.months.some((el) => {
+        // let tempObj = data.some((el1) => {
+        // if (el == el1.yue) {
+        // dataArr.push(el1);
+        // return el1;
+        // } else {
+        // return false;
+        // }
+        // });
+        // 如果前面月份没有数据赋值0
+        // if (!tempObj) {
+        //   dataArr.push({
+        //     yue: 0,
+        //     gpsbaojingshu: 0,
+        //     shebeibaojingshu: 0,
+        //     gpschulishu: 0,
+        //     shebeichulishu: 0,
+        //   });
+        // }
+        // if (el == data[data.length - 1].yue) {
+        //   return true;
+        // }
+        // });
         let bgData = new Array(dataArr.length).fill(100);
         // 当年报警趋势
         this.chartOption.option1 = {
@@ -701,7 +710,9 @@ export default {
             top: "20%",
             data: ["北斗报警数", "主动安全报警"],
           },
-          dataset: { source: dataArr },
+          dataset: {
+            source: dataArr,
+          },
           grid: { ...baroption.grid, top: "33%", left: "6%", right: "3%" },
           xAxis: [
             { ...baroption.xAxis },
@@ -813,7 +824,6 @@ export default {
     linkto(url) {
       this.$router.push(url);
     },
-    // 地图下钻
     // 地图下钻
     echartdblclick(el, isxiazhuan) {
       this.cengji++;
