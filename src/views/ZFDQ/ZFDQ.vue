@@ -176,6 +176,7 @@
 }
 </style>
 
+
 <template>
   <div class="enterprise">
     <all-header></all-header>
@@ -339,7 +340,7 @@
             <el-table-column
               prop="dmspilao"
               sortable="custom"
-              label="生理疲劳"
+              label="疲劳驾驶"
               align="center"
             ></el-table-column>
             <!-- <el-table-column prop="date" label="驾驶员异常" align="center"> </el-table-column>
@@ -550,6 +551,7 @@ export default {
     changeSort(val) {
       this.orderColumns = val.prop;
       this.order = this.isorder.get(val.order);
+      console.log(this.order);
       this.getZFDQBJTJJS(1);
     },
     // 统计下载
@@ -614,7 +616,7 @@ export default {
           "接打电话",
           "抽烟",
           "分神驾驶",
-          "生理疲劳",
+          "疲劳驾驶",
           "",
           "",
         ];

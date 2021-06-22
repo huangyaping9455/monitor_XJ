@@ -131,6 +131,15 @@ export const constantRouterMap = [{
     },
     component: () => import('@/views/DayStatistics/index')
   },
+  // 企业日运行情况统计
+  {
+    path: '/QYDayStatistics',
+    name: 'QYDayStatistics',
+    meta: {
+      requiresAuth: true
+    },
+    component: () => import('@/views/QYDayStatistics/index')
+  },
   // 地区报警排名
   {
     path: '/ZFDQ',

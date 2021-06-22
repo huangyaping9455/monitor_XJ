@@ -153,6 +153,12 @@
             <span>车辆日运行统计</span>
           </div>
         </el-menu-item>
+        <el-menu-item index="QYDayStatistics" @click="openMenu">
+          <div class="menu-item">
+            <svg-icon class="icon" icon-class="zhenggai" />
+            <span>企业日运行统计</span>
+          </div>
+        </el-menu-item>
       </el-submenu>
       <el-submenu index="3">
         <template slot="title">

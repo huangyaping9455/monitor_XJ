@@ -266,7 +266,12 @@
               }}</span>
             </template>
           </el-table-column>
-          <el-table-column label="企业名称" min-width="200" :show-overflow-tooltip="true" align="center">
+          <el-table-column
+            label="企业名称"
+            min-width="200"
+            align="center"
+            :show-overflow-tooltip="true"
+          >
             <template slot-scope="{ row }">
               <span class="businessName">{{ row.deptName }}</span>
             </template>
@@ -624,7 +629,7 @@ export default {
           "接打电话",
           "抽烟",
           "分神驾驶",
-          "生理疲劳",
+          "疲劳驾驶",
           "",
           "",
         ];

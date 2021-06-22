@@ -127,7 +127,6 @@ export const lineName = new Map()
   })
 
 export const geooption = (name, mapData) => {
-  // console.log(mapData);
   echarts.registerMap(name, maps[name]);
   return {
     title: {

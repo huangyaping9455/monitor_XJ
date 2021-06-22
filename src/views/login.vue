@@ -18,12 +18,20 @@
     height: 100%;
   }
 }
+.yamei {
+  color: white;
+  font-size: 4vh;
+  margin-right: 26vh;
+  // margin-right: 30vh;
+  margin-top: 3vh;
+}
 .loginbox {
   width: 27.1429rem;
   height: 32.8571rem;
   background-image: url("~@/assets/img/loginbox.png");
   background-size: 100% 100%;
-  margin-top: 7.8571rem;
+  // margin-top: 7.8571vh;
+  margin-top: 10.8571vh;
   margin-right: 15vw;
   display: flex;
   flex-direction: column;
@@ -90,8 +98,14 @@
 <template>
   <div class="login">
     <div class="logo">
-      <img src="@/assets/img/logo.png" />
+      <img src="@/assets/img/logo-22.png" />
+      <!-- <img src="@/assets/img/logo3.png" /> -->
+      <!-- <img src="@/assets/img/logo5.png" /> -->
     </div>
+    <!-- <div class="yamei">
+      <span>广州亚美信息科技有限公司</span>
+      <span>云南中流科技有限公司</span>
+    </div> -->
     <div class="loginbox">
       <p class="title">登 录</p>
       <el-form ref="ruleForm" :rules="rules" :model="form">

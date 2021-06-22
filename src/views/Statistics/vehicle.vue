@@ -237,6 +237,16 @@
           <el-option label="在用" :value="4"></el-option>
         </el-select>
       </el-form-item>
+      <el-form-item label="使用性质:">
+        <el-select v-model="from.shiyongxingzhi" class="search-input">
+          <el-option label="全部" value=""></el-option>
+          <el-option label="道路危险货物运输" :value="1"></el-option>
+          <el-option label="道路旅客运输" :value="2"></el-option>
+          <el-option label="道路货物运输" :value="3"></el-option>
+          <el-option label="出租车" :value="4"></el-option>
+          <el-option label="其他" :value="5"></el-option>
+        </el-select>
+      </el-form-item>
       <el-form-item>
         <el-button
           type="primary"
@@ -371,16 +381,18 @@ export default {
         cph: "",
         name: "",
         deptname: "",
+        shiyongxingzhi: "",
       },
       options: [],
     };
   },
   mounted() {
     const { query } = this.$route;
-    if (query) {
+    if (query && query.zaixian == "上线") {
       this.from = {
         ...this.from,
         ...query,
+        zaixian: 2,
       };
     }
     //获取统计车辆数据
@@ -410,8 +422,9 @@ export default {
           cph: this.from.cph,
           deptname: this.from.deptname,
           pagesize: this.pagesizeactive,
-          zaixian: this.$route.query.zaixian == "上线" ? 2 : this.from.zaixian,
+          zaixian: this.from.zaixian,
           zhuangtai: this.from.zhuangtai,
+          shiyongxingzhi: this.from.shiyongxingzhi,
         })
       );
       this.loading = false;
@@ -437,7 +450,6 @@ export default {
     },
     // 在线状态
     getzaixian(data) {
-      console.log(data);
       this.from.zaixian = data;
     },
     // 获取所有数据
@@ -452,6 +464,7 @@ export default {
           deptname: this.from.deptname,
           zaixian: this.from.zaixian,
           zhuangtai: this.from.zhuangtai,
+          shiyongxingzhi: this.from.shiyongxingzhi,
         })
       );
       this.downloading = false;

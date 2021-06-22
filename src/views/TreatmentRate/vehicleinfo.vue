@@ -412,6 +412,7 @@ export default {
         })
       );
       this.loading = false;
+      console.log(data);
       if (data) {
         this.enterpriseList = data.records;
         //分页处理

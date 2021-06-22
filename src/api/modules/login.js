@@ -1,4 +1,7 @@
-import { $axios,awaitWrap } from '../api';
+import {
+  $axios,
+  awaitWrap
+} from '../api';
 import qs from 'qs';
 /** 登录模块 */
 export default {
@@ -9,11 +12,11 @@ export default {
   // 登录授权
   ZFtoken(data) {
     data = qs.stringify(data)
-    return $axios.post('/blade-auth/ZFSignIn',data);
+    return $axios.post('/blade-auth/ZFSignIn', data);
   },
   // 退出登录
   logout() {
-    return $axios.get('/blade-auth/logout');
+    return $axios.get('/blade-auth/signOut');
   },
   awaitWrap
 };

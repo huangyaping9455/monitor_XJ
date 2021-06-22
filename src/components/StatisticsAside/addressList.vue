@@ -38,6 +38,7 @@
 }
 </style>
 
+
 <template>
   <div class="addressList">
     <el-tree
@@ -51,10 +52,10 @@
       <!-- //node,data -->
       <span class="custom-tree-node" slot-scope="{ data }">
         <span class="item-tree">
-          <img v-if="data.icontype == 0" src="@/assets/img/icon.png" />
-          <img v-if="data.icontype == 1" src="@/assets/img/icon1.png" />
-          <img v-if="data.icontype == 2" src="@/assets/img/icon2.png" />
-          {{ data.deptName }}
+          <img v-if="data.icontype==0" src="@/assets/img/icon.png" />
+          <img v-if="data.icontype==1" src="@/assets/img/icon1.png" />
+          <img v-if="data.icontype==2" src="@/assets/img/icon2.png" />
+          {{data.deptName}}
         </span>
       </span>
     </el-tree>

@@ -1,8 +1,7 @@
 import {
   $axios,
   awaitWrap
-}
-from '../api';
+} from '../api';
 import qs from 'qs';
 /** 数据分析模块 */
 export default {
@@ -10,13 +9,16 @@ export default {
   getZFBJTJJS(data) {
     return $axios.post('/blade-platform/platform/zhengFuBaoGao/getList', data);
   },
-  // 企业统计
   getZFDQBJCLLVTJ(data) {
     return $axios.post('/blade-platform/platform/organization/getList', data);
   },
   // 车辆日运行情况统计
   getZFCLRYXTJ(data) {
     return $axios.post('/blade-platform/platform/zhengFuBaoJingTongJi/getZFCLRYXTJ', data);
+  },
+  // 企业日运行情况统计
+  getQYRYXTJ(data) {
+    return $axios.post('/blade-platform/platform/zhengFuBaoJingTongJi/GetQYRYXTJ', data);
   },
   //政府报警统计-报警统计结算
   getZFDQBJTJJS(data) {
