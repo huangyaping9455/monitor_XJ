@@ -350,6 +350,7 @@
             prop="company"
             label="所属企业"
             width="250"
+            :show-overflow-tooltip="true"
             align="center"
             :show-overflow-tooltip="true"
           ></el-table-column>
@@ -369,6 +370,7 @@
             prop="operatType"
             label="车辆类型"
             width="70"
+            :show-overflow-tooltip="true"
             align="center"
             :show-overflow-tooltip="true"
           ></el-table-column>
@@ -376,6 +378,7 @@
             prop="alarmType"
             label="报警类型"
             width="100"
+            :show-overflow-tooltip="true"
             align="center"
           ></el-table-column>
           <el-table-column
@@ -390,6 +393,7 @@
             prop="beginTime"
             label="开始时间"
             width="150"
+            :show-overflow-tooltip="true"
             align="center"
             :show-overflow-tooltip="true"
           ></el-table-column>
@@ -468,6 +472,7 @@
             label="申诉形式"
             width="70"
             align="center"
+            :show-overflow-tooltip="true"
           ></el-table-column>
           <el-table-column prop="shensumiaoshu" label="申诉描述" :show-overflow-tooltip="true" align="center">
             <template slot-scope="{ row }">
