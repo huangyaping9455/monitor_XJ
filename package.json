@@ -19,7 +19,7 @@
     "vue": "^2.6.10",
     "vue-baidu-map": "^0.21.22",
     "vue-router": "^3.0.3",
-    "vue-seamless-scroll": "^1.1.21",
+    "vue-seamless-scroll": "^1.1.23",
     "vue-wechat-title": "^2.0.7",
     "vuex": "^3.0.1",
     "xlsx": "^0.16.3"
@@ -29,6 +29,7 @@
     "@vue/cli-plugin-eslint": "^3.1.1",
     "@vue/cli-service": "^3.1.1",
     "babel-eslint": "^10.0.1",
+    "crypto-js": "^4.0.0",
     "eslint": "^5.16.0",
     "eslint-plugin-vue": "^5.0.0",
     "node-sass": "^4.12.0",

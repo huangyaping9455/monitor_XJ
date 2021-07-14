@@ -153,6 +153,7 @@ import Cookies from "js-cookie";
 import loginApi from "@/api/modules/login";
 import { mapMutations } from "vuex";
 import { SET_USERINFO, SET_FASONGDANWEI } from "@/store/mutation-types";
+import { config } from "@/config/config.js";
 export default {
   data() {
     return {
@@ -182,7 +183,7 @@ export default {
     async getCode() {
       let [err, data] = await loginApi.awaitWrap(loginApi.getcode());
       if (data) {
-        this.codeImage = data;
+        this.codeImage = data.account;
       }
     },
     // 登录
@@ -197,13 +198,14 @@ export default {
       this.loading = true;
       let [err, data] = await loginApi.awaitWrap(
         loginApi.ZFtoken({
-          name: this.form.name,
-          password: this.form.pass,
-          verificationCode: this.form.code,
+          name: config.aesEncrypt(this.form.name),
+          password: config.aesEncrypt(this.form.pass),
+          // verificationCode: config.aesEncrypt(this.form.code),
+          clientVerifyCode: config.aesEncrypt(this.form.code),
+          type: config.aesEncrypt(0),
         })
       );
       this.loading = false;
-
       if (data) {
         this.SET_USERINFO(data);
         this.SET_FASONGDANWEI(data.deptId);

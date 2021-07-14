@@ -2616,6 +2616,11 @@ crypto-browserify@^3.11.0:
     randombytes "^2.0.0"
     randomfill "^1.0.3"
 
+crypto-js@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.nlark.com/crypto-js/download/crypto-js-4.0.0.tgz#2904ab2677a9d042856a2ea2ef80de92e4a36dcc"
+  integrity sha1-KQSrJnep0EKFai6i74DekuSjbcw=
+
 css-color-names@0.0.4, css-color-names@^0.0.4:
   version "0.0.4"
   resolved "https://registry.npm.taobao.org/css-color-names/download/css-color-names-0.0.4.tgz#808adc2e79cf84738069b646cb20ec27beb629e0"
@@ -8834,10 +8839,10 @@ vue-router@^3.0.3:
   resolved "https://registry.npm.taobao.org/vue-router/download/vue-router-3.4.3.tgz?cache=0&sync_timestamp=1598982978185&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fvue-router%2Fdownload%2Fvue-router-3.4.3.tgz#fa93768616ee338aa174f160ac965167fa572ffa"
   integrity sha1-+pN2hhbuM4qhdPFgrJZRZ/pXL/o=
 
-vue-seamless-scroll@^1.1.21:
-  version "1.1.21"
-  resolved "https://registry.npm.taobao.org/vue-seamless-scroll/download/vue-seamless-scroll-1.1.21.tgz#c30a3906780ae070be8280864178b0c123b14260"
-  integrity sha1-wwo5BngK4HC+goCGQXiwwSOxQmA=
+vue-seamless-scroll@^1.1.23:
+  version "1.1.23"
+  resolved "https://registry.nlark.com/vue-seamless-scroll/download/vue-seamless-scroll-1.1.23.tgz#dde81b3c79aa499791b3c3bffd0fdb22ff3e59a7"
+  integrity sha1-3egbPHmqSZeRs8O//Q/bIv8+Wac=
   dependencies:
     comutils "^1.1.9"
 

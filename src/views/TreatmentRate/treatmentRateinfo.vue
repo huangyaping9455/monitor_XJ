@@ -352,7 +352,6 @@
             width="250"
             :show-overflow-tooltip="true"
             align="center"
-            :show-overflow-tooltip="true"
           ></el-table-column>
           <el-table-column
             prop="plate"
@@ -372,7 +371,6 @@
             width="70"
             :show-overflow-tooltip="true"
             align="center"
-            :show-overflow-tooltip="true"
           ></el-table-column>
           <el-table-column
             prop="alarmType"
@@ -395,7 +393,6 @@
             width="150"
             :show-overflow-tooltip="true"
             align="center"
-            :show-overflow-tooltip="true"
           ></el-table-column>
           <el-table-column
             v-if="form.type == 1"
@@ -454,7 +451,12 @@
             align="center"
             :show-overflow-tooltip="true"
           ></el-table-column>
-          <el-table-column prop="chulimiaoshu" label="处理描述" :show-overflow-tooltip="true" align="center">
+          <el-table-column
+            prop="chulimiaoshu"
+            label="处理描述"
+            :show-overflow-tooltip="true"
+            align="center"
+          >
             <template slot-scope="{ row }">
               <el-tooltip
                 popper-class="tablePopper"
@@ -474,7 +476,12 @@
             align="center"
             :show-overflow-tooltip="true"
           ></el-table-column>
-          <el-table-column prop="shensumiaoshu" label="申诉描述" :show-overflow-tooltip="true" align="center">
+          <el-table-column
+            prop="shensumiaoshu"
+            label="申诉描述"
+            :show-overflow-tooltip="true"
+            align="center"
+          >
             <template slot-scope="{ row }">
               <el-tooltip
                 popper-class="tablePopper"

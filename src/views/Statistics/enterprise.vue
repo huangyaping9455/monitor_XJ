@@ -266,16 +266,12 @@
               }}</span>
             </template>
           </el-table-column>
-<<<<<<< HEAD
-          <el-table-column label="企业名称" min-width="200" :show-overflow-tooltip="true" align="center">
-=======
           <el-table-column
             label="企业名称"
             min-width="200"
             align="center"
             :show-overflow-tooltip="true"
           >
->>>>>>> 994329d056209049a4fa7635e75d2d178b35edd5
             <template slot-scope="{ row }">
               <span class="businessName">{{ row.deptName }}</span>
             </template>
