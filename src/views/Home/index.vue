@@ -583,7 +583,7 @@ export default {
         this.getFour(this.zhengfuindex);
       } else {
         this.getOne(this.userinfo.deptId);
-        this.getTwo(this.userinfo.deptId, 0);
+        this.getTwo(this.userinfo.deptId, 0, "");
         this.getThree(this.userinfo.deptId, 0);
         this.getFour(this.userinfo.deptId);
       }
@@ -638,7 +638,8 @@ export default {
       }
     },
     // 政府-超速报警次数、疲劳报警总数、夜间行驶报警次数、异常报警次数
-    async getTwo(deptId, type = 0, areaName = "", isxiazhuan = true) {
+    // async getTwo(deptId, type = 0, areaName = "", isxiazhuan = true) {
+    async getTwo(deptId, type, areaName, isxiazhuan = true) {
       this.load.load = true;
       if (type == 0) this.cengji = 0;
       let [err, data] = await homeApi.awaitWrap(
@@ -677,7 +678,7 @@ export default {
         if (type == 0) {
           mapData = [
             {
-              name: data.areaname,
+              name: data.areaname === "重庆市" ? "重庆" : data.areaname,
               value: data.baojingcishu,
               zhengfuid: data.zhengfuid,
             },
@@ -694,7 +695,13 @@ export default {
         this.mapData = mapData;
         this.areaName = areaName ? areaName : this.userinfo.diqu;
         this.chartOption.option9 = geooption(
-          areaName ? areaName : this.userinfo.diqu,
+          areaName
+            ? areaName === "重庆"
+              ? "重庆市"
+              : areaName
+            : this.userinfo.diqu === "重庆市"
+            ? "China"
+            : this.userinfo.diqu,
           mapData
         );
       }

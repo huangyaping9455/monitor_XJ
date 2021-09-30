@@ -15,7 +15,14 @@ Router.prototype.replace = function replace(location) {
 
 export const constantRouterMap = [{
     path: '/',
-    redirect: '/home'
+    // redirect: '/home'
+    redirect: function () {
+      if (window.location.search === "") {
+        return '/home'
+      } else {
+        return 'wel'
+      }
+    }
   },
   {
     path: '/login',
@@ -24,6 +31,14 @@ export const constantRouterMap = [{
       requiresAuth: false
     },
     component: () => import('@/views/login')
+  },
+  {
+    path: '/wel',
+    meta: {
+      title: '欢迎页',
+      requiresAuth: false
+    },
+    component: () => import('@/views/wel')
   },
   {
     path: '/home',

@@ -163,6 +163,7 @@ export default {
         name: "",
         pass: "",
         code: "",
+        type: 0,
       },
       codeImage: "", //验证码
       loading: false,
@@ -202,7 +203,7 @@ export default {
           password: config.aesEncrypt(this.form.pass),
           // verificationCode: config.aesEncrypt(this.form.code),
           clientVerifyCode: config.aesEncrypt(this.form.code),
-          type: config.aesEncrypt(0),
+          type: config.aesEncrypt(this.form.type),
         })
       );
       this.loading = false;

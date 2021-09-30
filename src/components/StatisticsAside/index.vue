@@ -1,22 +1,24 @@
 <style lang="scss" scoped>
-.statisticsAside{
+.statisticsAside {
   width: 22rem;
   height: 100%;
-  background-image: url('~@/assets/img/bg_11.png');
+  background-image: url("~@/assets/img/bg_11.png");
   background-size: 100% 100%;
   padding-top: 0.7143rem;
-  .title{
+  .title {
     margin-top: 1.0714rem;
     margin-bottom: 0;
     font-size: 1.4286rem;
     color: #01f5f8;
     font-weight: normal;
     text-align: center;
-    font-family: 'MicrosoftYaHei';
+    font-family: "MicrosoftYaHei";
     margin-bottom: 2.1429rem;
   }
-  .mian{
+  .mian {
     margin-left: 1.0714rem;
+    height: calc(100% - 83px);
+    overflow: auto;
   }
 }
 </style>
@@ -34,5 +36,5 @@ export default {
   components: {
     "address-list": addressList,
   },
-}
+};
 </script>
