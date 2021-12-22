@@ -35,7 +35,7 @@ $axios.interceptors.response.use((response) => {
     switch (code) {
       case 200:
         msg && console.log(msg);
-        return Promise.resolve(data.data);
+        return data.rows ? Promise.resolve(data) : Promise.resolve(data.data);
       case 304:
         // 请求过期
         console.log('跳转到首页');

@@ -12,6 +12,7 @@ import 广西 from "./广西/广西壮族自治区.json"
 import 福建 from "./福建省/福建省.json"
 import 云南 from "./云南/云南省.json"
 import 重庆市 from "./重庆/重庆市.json"
+import 山西 from "./山西省/山西省.json"
 
 // 河南
 import 三门峡市 from "./河南/sanmenxia.json";
@@ -810,6 +811,135 @@ import 渝中区 from "./重庆/渝中区.json";
 import 云阳县 from "./重庆/云阳县.json";
 import 长寿区 from "./重庆/长寿区.json";
 import 忠县 from "./重庆/忠县.json";
+// 山西
+import 大同市 from "./山西省/大同市/大同市.json";
+import 新荣区 from "./山西省/大同市/新荣区.json";
+import 平城区 from "./山西省/大同市/平城区.json";
+import 云冈区 from "./山西省/大同市/云冈区.json";
+import 云州区 from "./山西省/大同市/云州区.json";
+import 阳高县 from "./山西省/大同市/阳高县.json";
+import 天镇县 from "./山西省/大同市/天镇县.json";
+import 广灵县 from "./山西省/大同市/广灵县.json";
+import 灵丘县 from "./山西省/大同市/灵丘县.json";
+import 浑源县 from "./山西省/大同市/浑源县.json";
+import 左云县 from "./山西省/大同市/左云县.json";
+import 晋城市 from "./山西省/晋城市/晋城市.json";
+import 晋城市城区 from "./山西省/晋城市/城区.json";
+import 沁水县 from "./山西省/晋城市/沁水县.json";
+import 阳城县 from "./山西省/晋城市/阳城县.json";
+import 陵川县 from "./山西省/晋城市/陵川县.json";
+import 泽州县 from "./山西省/晋城市/泽州县.json";
+import 高平市 from "./山西省/晋城市/高平市.json";
+import 晋中市 from "./山西省/晋中市/晋中市.json";
+import 榆次区 from "./山西省/晋中市/榆次区.json";
+import 太谷区 from "./山西省/晋中市/太谷区.json";
+import 榆社县 from "./山西省/晋中市/榆社县.json";
+import 左权县 from "./山西省/晋中市/左权县.json";
+import 和顺县 from "./山西省/晋中市/和顺县.json";
+import 昔阳县 from "./山西省/晋中市/昔阳县.json";
+import 寿阳县 from "./山西省/晋中市/寿阳县.json";
+import 祁县 from "./山西省/晋中市/祁县.json";
+import 平遥县 from "./山西省/晋中市/平遥县.json";
+import 灵石县 from "./山西省/晋中市/灵石县.json";
+import 介休市 from "./山西省/晋中市/介休市.json";
+import 临汾市 from "./山西省/临汾市/临汾市.json";
+import 尧都区 from "./山西省/临汾市/尧都区.json";
+import 曲沃县 from "./山西省/临汾市/曲沃县.json";
+import 翼城县 from "./山西省/临汾市/翼城县.json";
+import 襄汾县 from "./山西省/临汾市/襄汾县.json";
+import 洪洞县 from "./山西省/临汾市/洪洞县.json";
+import 古县 from "./山西省/临汾市/古县.json";
+import 安泽县 from "./山西省/临汾市/安泽县.json";
+import 浮山县 from "./山西省/临汾市/浮山县.json";
+import 吉县 from "./山西省/临汾市/吉县.json";
+import 乡宁县 from "./山西省/临汾市/乡宁县.json";
+import 大宁县 from "./山西省/临汾市/大宁县.json";
+import 隰县 from "./山西省/临汾市/隰县.json";
+import 永和县 from "./山西省/临汾市/永和县.json";
+import 蒲县 from "./山西省/临汾市/蒲县.json";
+import 汾西县 from "./山西省/临汾市/汾西县.json";
+import 侯马市 from "./山西省/临汾市/侯马市.json";
+import 霍州市 from "./山西省/临汾市/霍州市.json";
+import 吕梁市 from "./山西省/吕梁市/吕梁市.json";
+import 离石区 from "./山西省/吕梁市/离石区.json";
+import 文水县 from "./山西省/吕梁市/文水县.json";
+import 交城县 from "./山西省/吕梁市/交城县.json";
+import 兴县 from "./山西省/吕梁市/兴县.json";
+import 临县 from "./山西省/吕梁市/临县.json";
+import 柳林县 from "./山西省/吕梁市/柳林县.json";
+import 石楼县 from "./山西省/吕梁市/石楼县.json";
+import 岚县 from "./山西省/吕梁市/岚县.json";
+import 方山县 from "./山西省/吕梁市/方山县.json";
+import 中阳县 from "./山西省/吕梁市/中阳县.json";
+import 交口县 from "./山西省/吕梁市/交口县.json";
+import 孝义市 from "./山西省/吕梁市/孝义市.json";
+import 汾阳市 from "./山西省/吕梁市/汾阳市.json";
+import 朔州市 from "./山西省/朔州市/朔州市.json";
+import 朔城区 from "./山西省/朔州市/朔城区.json";
+import 平鲁区 from "./山西省/朔州市/平鲁区.json";
+import 山阴县 from "./山西省/朔州市/山阴县.json";
+import 应县 from "./山西省/朔州市/应县.json";
+import 右玉县 from "./山西省/朔州市/右玉县.json";
+import 怀仁市 from "./山西省/朔州市/怀仁市.json";
+import 太原市 from "./山西省/太原市/太原市.json";
+import 小店区 from "./山西省/太原市/小店区.json";
+import 迎泽区 from "./山西省/太原市/迎泽区.json";
+import 杏花岭区 from "./山西省/太原市/杏花岭区.json";
+import 尖草坪区 from "./山西省/太原市/尖草坪区.json";
+import 万柏林区 from "./山西省/太原市/万柏林区.json";
+import 晋源区 from "./山西省/太原市/晋源区.json";
+import 清徐县 from "./山西省/太原市/清徐县.json";
+import 阳曲县 from "./山西省/太原市/阳曲县.json";
+import 娄烦县 from "./山西省/太原市/娄烦县.json";
+import 古交市 from "./山西省/太原市/古交市.json";
+import 忻州市 from "./山西省/忻州市/忻州市.json";
+import 忻府区 from "./山西省/忻州市/忻府区.json";
+import 定襄县 from "./山西省/忻州市/定襄县.json";
+import 五台县 from "./山西省/忻州市/五台县.json";
+import 代县 from "./山西省/忻州市/代县.json";
+import 繁峙县 from "./山西省/忻州市/繁峙县.json";
+import 宁武县 from "./山西省/忻州市/宁武县.json";
+import 静乐县 from "./山西省/忻州市/静乐县.json";
+import 神池县 from "./山西省/忻州市/神池县.json";
+import 五寨县 from "./山西省/忻州市/五寨县.json";
+import 岢岚县 from "./山西省/忻州市/岢岚县.json";
+import 河曲县 from "./山西省/忻州市/河曲县.json";
+import 保德县 from "./山西省/忻州市/保德县.json";
+import 偏关县 from "./山西省/忻州市/偏关县.json";
+import 原平市 from "./山西省/忻州市/原平市.json";
+import 阳泉市 from "./山西省/阳泉市/阳泉市.json";
+import 阳泉市城区 from "./山西省/阳泉市/城区.json";
+import 矿区 from "./山西省/阳泉市/矿区.json";
+import 阳泉市郊区 from "./山西省/阳泉市/郊区.json";
+import 平定县 from "./山西省/阳泉市/平定县.json";
+import 盂县 from "./山西省/阳泉市/盂县.json";
+import 运城市 from "./山西省/运城市/运城市.json";
+import 盐湖区 from "./山西省/运城市/盐湖区.json";
+import 临猗县 from "./山西省/运城市/临猗县.json";
+import 万荣县 from "./山西省/运城市/万荣县.json";
+import 闻喜县 from "./山西省/运城市/闻喜县.json";
+import 稷山县 from "./山西省/运城市/稷山县.json";
+import 新绛县 from "./山西省/运城市/新绛县.json";
+import 绛县 from "./山西省/运城市/绛县.json";
+import 垣曲县 from "./山西省/运城市/垣曲县.json";
+import 夏县 from "./山西省/运城市/夏县.json";
+import 平陆县 from "./山西省/运城市/平陆县.json";
+import 芮城县 from "./山西省/运城市/芮城县.json";
+import 永济市 from "./山西省/运城市/永济市.json";
+import 河津市 from "./山西省/运城市/河津市.json";
+import 长治市 from "./山西省/长治市/长治市.json";
+import 潞州区 from "./山西省/长治市/潞州区.json";
+import 上党区 from "./山西省/长治市/上党区.json";
+import 屯留区 from "./山西省/长治市/屯留区.json";
+import 潞城区 from "./山西省/长治市/潞城区.json";
+import 襄垣县 from "./山西省/长治市/襄垣县.json";
+import 平顺县 from "./山西省/长治市/平顺县.json";
+import 黎城县 from "./山西省/长治市/黎城县.json";
+import 壶关县 from "./山西省/长治市/壶关县.json";
+import 长子县 from "./山西省/长治市/长子县.json";
+import 武乡县 from "./山西省/长治市/武乡县.json";
+import 沁县 from "./山西省/长治市/沁县.json";
+import 沁源县 from "./山西省/长治市/沁源县.json";
 export {
   China,
   中华人民共和国,
@@ -1611,4 +1741,134 @@ export {
 云阳县,
 长寿区,
 忠县,
+
+  山西,
+  大同市,
+  新荣区,
+  平城区,
+  云冈区,
+  云州区,
+  阳高县,
+  天镇县,
+  广灵县,
+  灵丘县,
+  浑源县,
+  左云县,
+  晋城市,
+  晋城市城区,
+  沁水县,
+  阳城县,
+  陵川县,
+  泽州县,
+  高平市,
+  晋中市,
+  榆次区,
+  太谷区,
+  榆社县,
+  左权县,
+  和顺县,
+  昔阳县,
+  寿阳县,
+  祁县,
+  平遥县,
+  灵石县,
+  介休市,
+  临汾市,
+  尧都区,
+  曲沃县,
+  翼城县,
+  襄汾县,
+  洪洞县,
+  古县,
+  安泽县,
+  浮山县,
+  吉县,
+  乡宁县,
+  大宁县,
+  隰县,
+  永和县,
+  蒲县,
+  汾西县,
+  侯马市,
+  霍州市,
+  吕梁市,
+  离石区,
+  文水县,
+  交城县,
+  兴县,
+  临县,
+  柳林县,
+  石楼县,
+  岚县,
+  方山县,
+  中阳县,
+  交口县,
+  孝义市,
+  汾阳市,
+  朔州市,
+  朔城区,
+  平鲁区,
+  山阴县,
+  应县,
+  右玉县,
+  怀仁市,
+  太原市,
+  小店区,
+  迎泽区,
+  杏花岭区,
+  尖草坪区,
+  万柏林区,
+  晋源区,
+  清徐县,
+  阳曲县,
+  娄烦县,
+  古交市,
+  忻州市,
+  忻府区,
+  定襄县,
+  五台县,
+  代县,
+  繁峙县,
+  宁武县,
+  静乐县,
+  神池县,
+  五寨县,
+  岢岚县,
+  河曲县,
+  保德县,
+  偏关县,
+  原平市,
+  阳泉市,
+  阳泉市城区,
+  矿区,
+  阳泉市郊区,
+  平定县,
+  盂县,
+  运城市,
+  盐湖区,
+  临猗县,
+  万荣县,
+  闻喜县,
+  稷山县,
+  新绛县,
+  绛县,
+  垣曲县,
+  夏县,
+  平陆县,
+  芮城县,
+  永济市,
+  河津市,
+  长治市,
+  潞州区,
+  上党区,
+  屯留区,
+  潞城区,
+  襄垣县,
+  平顺县,
+  黎城县,
+  壶关县,
+  长子县,
+  武乡县,
+  沁县,
+  沁源县,
 }

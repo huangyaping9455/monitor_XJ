@@ -1,0 +1,311 @@
+<template>
+  <el-dialog
+    top="5vh"
+    width="60%"
+    class="vehicledetails"
+    center
+    :title="$parent.nowResolve.qiyemingcheng + '--安全达标分值分析'"
+    :show-close="false"
+    :close-on-click-modal="false"
+    :visible.sync="dialogVisible"
+  >
+    <div class="com-tab" v-loading="loadingTab">
+      <dl class="flex-row">
+        <dd class="width-100">考评内容</dd>
+        <dd class="width-300 width-auto">考评要点</dd>
+        <dd class="width-100 width-80 ">法律法规</dd>
+        <dd class="width-100 width-80">达标分值</dd>
+        <dd class="width-100 width-80">星级</dd>
+        <dd class="width-100 width-80">当前分值</dd>
+      </dl>
+      <ul>
+        <li
+          class="flex-row li-item border-bottom"
+          v-for="item in dataTab"
+          :key="item.id"
+        >
+          <div class="width-100 padding-10 flex">
+            <p class="text-center font-size12 item-name">
+              {{ item.parentName || "" }}
+            </p>
+          </div>
+          <div class="flex-row width-flex">
+            <div class="padding-10 width-100 border-right flex">
+              <p class="text-center font-size12">{{ item.twoTree }}</p>
+            </div>
+            <div class="col-item flex flex-column width-flex">
+              <div
+                class="flex-row col-content "
+                v-for="children in item.children"
+                :key="children.id"
+              >
+                <div class="width-200 flex jf-start">
+                  <div class="text text-ellipsis2 font-size12">
+                    {{ children.name }}
+                  </div>
+                </div>
+                <div class="width-100 width-80 flex">
+                  <img
+                    class="book-img"
+                    src="../../assets/img/book.png"
+                    alt=""
+                  />
+                </div>
+                <!-- <span class="width-100 width-80 flex">{{ children.levelNumber }}</span> -->
+                <span class="width-100 width-80 flex">{{
+                  children.score
+                }}</span>
+                <div class="start-item width-100 width-80 flex">
+                  <img
+                    v-show="+children.starlevel"
+                    v-for="(start, index) in Array(+children.starlevel)"
+                    :key="index"
+                    class="start"
+                    src="../../assets/img/start.png"
+                    alt=""
+                    srcset=""
+                  />
+                </div>
+                <span
+                  :class="[
+                    'width-100',
+                    'width-80',
+                    'flex',
+                    'border-left',
+                    { redf: children.score !== children.nowscores },
+                  ]"
+                >
+                  {{ children.nowscores }}
+                </span>
+              </div>
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div slot="footer">
+      <el-button
+        class="topbtn nom"
+        type="primary"
+        @click="dialogVisible = false"
+        >关 闭</el-button
+      >
+    </div>
+  </el-dialog>
+</template>
+
+<script>
+import { format } from "@/config/date";
+import dataAnalysisApi from "@/api/modules/report";
+export default {
+  props: {},
+  data() {
+    return {
+      dialogVisible: false,
+      dataTab: [],
+      loadingTab: false,
+      deptId: "",
+    };
+  },
+  computed: {
+    textObj() {
+      let temp = "";
+      if (this.type === 1) {
+        temp = "危货";
+      } else if (this.type === 2) {
+        temp = "普货";
+      } else {
+        temp = "旅客";
+      }
+      return {
+        text: temp,
+        textStart: `${temp}分值`,
+      };
+    },
+  },
+  methods: {
+    async treeFunc(data) {
+      let temp = [];
+      let tree = [];
+      data.forEach((item, index) => {
+        if (!temp.includes(item.parentName)) {
+          let bojItem = {
+            parentName: item.parentName,
+            twoTree: item.erparentName,
+            yunyingleixing: item.yunyingleixing,
+            children: [],
+          };
+          temp.push(item.parentName);
+          tree.push(bojItem);
+        }
+      });
+      return tree;
+    },
+
+    async itemObject(object, originData) {
+      originData.forEach((item) => {
+        if (item.parentName === object.parentName) {
+          object.children.push(item);
+        }
+      });
+    },
+    async getTreeTab(data) {
+      const tempData = await this.treeFunc(data);
+      tempData.forEach((item) => {
+        this.itemObject(item, data);
+      });
+      return tempData;
+    },
+    async clickTreeHadnle(id) {
+      this.loadingTab = true;
+      let [err, data] = await dataAnalysisApi.awaitWrap(
+        dataAnalysisApi.getTreeTable({
+          Id: "",
+          fileProperty: 3,
+          deptId: id,
+        })
+      );
+      if (data) {
+        const treeTabData = await this.getTreeTab(data);
+        this.dataTab = treeTabData;
+        this.loadingTab = false;
+      } else {
+        this.$message.warning("未生成标准化文件");
+        this.dataTab = "";
+        this.loadingTab = false;
+      }
+    },
+  },
+};
+</script>
+
+<style lang="scss">
+@import "./common.css";
+.el-dialog {
+  background-image: url("~@/assets/img/bg_14.png");
+  background-size: 100% 100%;
+  background-color: transparent;
+  .el-dialog__title {
+    color: #fff;
+    font-weight: 600;
+  }
+  .el-dialog__body {
+    padding: 10px 25px;
+  }
+  .com-tab {
+    border: 2px solid #70b7ff;
+    height: 700px;
+    overflow: auto;
+    ul {
+      padding-inline-start: 0;
+      margin-block-start: 0;
+      background-color: #fff;
+    }
+    dl {
+      margin-block-start: 0;
+      margin-block-end: 0;
+      dd {
+        margin-inline-start: 0;
+      }
+    }
+    .border-left {
+      border-left: 1px solid #e3e3e3 !important;
+    }
+    .jf-start {
+      justify-content: flex-start !important;
+    }
+    .text-ellipsis2 {
+      text-align: left;
+    }
+    .start {
+      width: 20px;
+    }
+    .width-flex {
+      width: 100%;
+      box-sizing: border-box;
+    }
+    .width-auto {
+      flex: 1 auto;
+      width: initial !important;
+    }
+    .padding-20 {
+      padding: 20px;
+    }
+    .border-right {
+      border-right: 1px solid #e3e3e3;
+    }
+    .border-bottom {
+      border-bottom: 1px solid #e3e3e3;
+    }
+    .book-img {
+      width: 25px;
+    }
+    dd {
+      font-size: 14px;
+      border-right: 1px solid #e3e3e3;
+      background-color: #37a9f7;
+      color: #fff;
+      text-align: center;
+      //   padding: 5px 10px;
+      &:last-of-type {
+        border: 0;
+      }
+    }
+    .redf {
+      color: red;
+      font-weight: 600;
+    }
+    .width-80 {
+      width: 77px !important;
+      padding: 5px 10px;
+    }
+    .width-100 {
+      box-sizing: border-box;
+      align-items: center;
+      justify-content: center;
+      width: 78px;
+      border-right: 1px solid #e3e3e3;
+      &:last-of-type {
+        border: none;
+      }
+    }
+    .width-200 {
+      width: 10px;
+      padding: 0 10px;
+      flex: 1 auto;
+      align-items: center;
+      justify-content: center;
+      border-right: 1px solid #e3e3e3;
+    }
+    .width-300 {
+      width: 400px;
+      box-sizing: border-box;
+      align-items: center;
+      text-align: center !important;
+      justify-content: center;
+      border-right: 1px solid #e3e3e3;
+    }
+    .li-item {
+      .padding-10 {
+        padding: 10px;
+      }
+      .item-name {
+        width: 80px;
+      }
+    }
+    .col-item {
+      .col-content {
+        display: flex;
+        height: 100%;
+        border-bottom: 1px solid #e3e3e3;
+        .text {
+          padding: 5px;
+        }
+        &:last-of-type {
+          border: none;
+        }
+      }
+    }
+  }
+}
+</style>

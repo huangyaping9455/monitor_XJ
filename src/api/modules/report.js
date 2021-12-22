@@ -37,5 +37,45 @@ export default {
     data = qs.stringify(data)
     return $axios.post('/blade-platform/platform/baobiaowenjian/preview', data);
   },
+  // 标准化弹出列表
+  getTreeTable(params) {
+    return $axios.get('/blade-doc/doc/biaozhunhuamuban/listTree', {
+      params: params
+    });
+  },
+  // 安全达标统计列表
+  getSafetyStandardsQiYeList(data) {
+    return $axios.post('/blade-platform/platform/zhengFuShouYeNew/getSafetyStandardsQiYeList', data);
+  },
+  // 获取学习记录列表
+  selectZFPersonLearnInfoAll(data) {
+    return $axios.post('/blade-platform/platform/qiYeShouYe/selectZFPersonLearnCoutAll', data);
+  },
+  // 获取学习 详情 记录列表
+  selectPersonLearnInfoAll(data) {
+    return $axios.post('/blade-platform/platform/qiYeShouYe/selectPersonLearnInfoAll', data);
+  },
+  // 获取隐患排查 明细 列表
+  getTroubleSetList(params) {
+    return $axios.get('/prod-api/tapi/thirdtrouble/trouble/buiness/list', {
+      params: params
+    });
+  },
+  // 获取隐患排查列表
+  getTroubleList(params) {
+    return $axios.get('/prod-api/tapi/thirdtrouble/trouble/buiness/statisticsList', {
+      params: params
+    });
+  },
+  // 获取隐患排查 数
+  getTroublelistCount(params) {
+    return $axios.get('/prod-api/tapi/thirdtrouble/trouble/buiness/listCount', {
+      params: params
+    });
+  },
+  // 获取首页隐患排查 数
+  getTroubleCountNum(comId) {
+    return $axios.get(`/prod-api/tapi/thirdtrouble/trouble/buiness/countNumZF/${comId}`);
+  },
   awaitWrap
 };

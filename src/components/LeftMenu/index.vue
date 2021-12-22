@@ -238,6 +238,48 @@
           </div>
         </el-menu-item>
       </el-submenu>
+      <el-submenu index="6">
+        <template slot="title">
+          <div class="menu-item">
+            <svg-icon class="icon" icon-class="tongzhi" />
+            <span>安全达标</span>
+          </div>
+        </template>
+        <el-menu-item index="safeStandard" @click="openMenu">
+          <div class="menu-item">
+            <svg-icon class="icon" icon-class="zhenggai" />
+            <span>企业达标明细</span>
+          </div>
+        </el-menu-item>
+      </el-submenu>
+      <el-submenu index="7">
+        <template slot="title">
+          <div class="menu-item">
+            <svg-icon class="icon" icon-class="zhenggai" />
+            <span>安全教育学习</span>
+          </div>
+        </template>
+        <el-menu-item index="learningPlatform" @click="openMenu">
+          <div class="menu-item">
+            <svg-icon class="icon" icon-class="wenjian" />
+            <span>学习情况统计</span>
+          </div>
+        </el-menu-item>
+      </el-submenu>
+      <el-submenu index="8">
+        <template slot="title">
+          <div class="menu-item">
+            <svg-icon class="icon" icon-class="anquan" />
+            <span>安全管理</span>
+          </div>
+        </template>
+        <el-menu-item index="hidDanger" @click="openMenu">
+          <div class="menu-item">
+            <svg-icon class="icon" icon-class="wenjian" />
+            <span>隐患排查</span>
+          </div>
+        </el-menu-item>
+      </el-submenu>
     </el-menu>
     <div
       class="movebtn"

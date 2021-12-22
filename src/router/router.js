@@ -174,6 +174,14 @@ export const constantRouterMap = [{
     component: () => import('@/views/VehicleRank/index')
   },
   {
+    path: '/standard',
+    name: 'standard',
+    meta: {
+      requiresAuth: true
+    },
+    component: () => import('@/views/standard/index')
+  },
+  {
     path: '',
     meta: {
       title: '政企互通'
@@ -252,7 +260,32 @@ export const constantRouterMap = [{
           requiresAuth: true
         },
         component: () => import('@/views/monthReport/index'),
-      }
+      },
+      {
+        path: '/safeStandard',
+        name: 'safeStandard',
+        meta: {
+          title: '企业达标明细',
+          requiresAuth: true
+        },
+        component: () => import('@/views/safeStandard/index'),
+      }, {
+        path: '/learningPlatform',
+        name: 'learningPlatform',
+        meta: {
+          title: '学习情况统计',
+          requiresAuth: true
+        },
+        component: () => import('@/views/learningPlatform/index'),
+      }, {
+        path: '/hidDanger',
+        name: 'hidDanger',
+        meta: {
+          title: '隐患排查',
+          requiresAuth: true
+        },
+        component: () => import('@/views/hidDanger/index'),
+      },
     ]
   },
 ]
