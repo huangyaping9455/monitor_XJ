@@ -325,7 +325,7 @@ export default {
         })
       );
       if (data) {
-        window.location.href = "http://61.136.101.78:8894/" + data.path;
+        window.location.href = "http://222.82.236.242:8894/" + data.path;
       } else {
         this.$message.error(msg);
       }
